@@ -17,6 +17,7 @@ const Header = () => {
       <nav className='container mx-auto px-4 py-4 flex items-center justify-between'>
         <Link href='/'>
           <Image
+            src={'/randomLogo.jpg'}
             alt='logo'
             height={60}
             width={200}
@@ -60,7 +61,15 @@ const Header = () => {
             </SignUpButton>
           </SignedOut>
           <SignedIn>
-            <UserButton />
+            <UserButton
+              appearance={{
+                elements: {
+                  avatarBox: 'w-[48px] h-[48px] rounded-full',
+                  userButtonAvatarBox: 'w-14 h-14',
+                  userButtonTrigger: 'w-[48px] h-[48px] p-0',
+                },
+              }}
+            />
           </SignedIn>
         </div>
       </nav>
