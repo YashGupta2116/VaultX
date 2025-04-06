@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -119,4 +119,47 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+@layer utilities {
+  /* Define each custom utility separately and completely */
+  .gradient {
+    background-image: linear-gradient(
+      to bottom right,
+      var(--tw-gradient-stops)
+    );
+    --tw-gradient-from: #2563eb; /* blue-600 */
+    --tw-gradient-to: #9333ea; /* purple-600 */
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+  }
+
+  .gradient-title {
+    background-image: linear-gradient(
+      to bottom right,
+      var(--tw-gradient-stops)
+    );
+    --tw-gradient-from: #2563eb; /* blue-600 */
+    --tw-gradient-to: #9333ea; /* purple-600 */
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+    font-weight: 800; /* extrabold */
+    letter-spacing: -0.05em; /* tracking-tighter */
+    padding-right: 0.5rem; /* pr-2 */
+    padding-bottom: 0.5rem; /* pb-2 */
+    color: transparent;
+    background-clip: text;
+  }
+}
+
+.hero-image-wrapper {
+  perspective: 500px;
+}
+
+.hero-image {
+  transform: rotateX(15deg) scale(1);
+  transition: transform 0.4s ease-in-out;
+  will-change: transform;
+}
+
+.hero-image.scrolled {
+  transform: rotateX(0deg) scale(1) translateY(40px);
 }
