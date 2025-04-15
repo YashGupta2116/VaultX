@@ -9,7 +9,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import {Checkbox} from '@/components/ui/checkbox';
-import React, {useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {format} from 'date-fns';
 import {categoryColors} from '@/data/categories';
 import {Badge} from '@/components/ui/badge';
@@ -46,6 +46,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import useFetch from '@/hooks/use-fetch';
+import {bulkDeleteTransactions} from '@/actions/accounts';
+import {toast} from 'sonner';
+import {BarLoader} from 'react-spinners';
 
 const RECURRING_INTERVALS = {
   DAILY: 'Daily',
@@ -65,6 +69,31 @@ const TransactionTable = ({transactions}) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [typeFilter, setTypeFilter] = useState('');
   const [recurringFilter, setRecurringFilter] = useState('');
+
+  const {
+    loading: deleteLoading,
+    fn: deleteFn,
+    data: deleted,
+  } = useFetch(bulkDeleteTransactions);
+
+  const handleBulkDelete = async () => {
+    if (
+      !window.confirm(
+        `Are you sure you want to delete ${selectedIds.length} transctions?`
+      )
+    ) {
+      return;
+    }
+
+    deleteFn(selectedIds);
+  };
+
+  useEffect(() => {
+    if (deleted && !deleteLoading) {
+      toast.error('Transactions deleted successfully');
+      setSelectedIds([]);
+    }
+  }, [deleted, deleteLoading]);
 
   const filteredAndSortedTransactions = useMemo(() => {
     let result = [...transactions];
@@ -140,8 +169,6 @@ const TransactionTable = ({transactions}) => {
     );
   };
 
-  const handleBulkDelete = () => {};
-
   const handleClearFilers = () => {
     setRecurringFilter('');
     setSearchTerm('');
@@ -151,6 +178,10 @@ const TransactionTable = ({transactions}) => {
 
   return (
     <div className='space-y-4'>
+      {deleteLoading && (
+        <BarLoader className='mt-4' width={'100%'} color='#9333ea' />
+      )}
+
       {/* Filters nd search box */}
       <div className='flex flex-col sm:flex-row gap-4'>
         <div className='relative flex-1'>
@@ -377,7 +408,7 @@ const TransactionTable = ({transactions}) => {
                         <DropdownMenuSeparator />
                         <DropdownMenuItem
                           className={`text-destructive`}
-                          //   onClick={() => deleteFn([transaction.id])}
+                          onClick={() => deleteFn([transaction.id])}
                         >
                           Delete
                         </DropdownMenuItem>
