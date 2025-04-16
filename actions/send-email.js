@@ -4,7 +4,7 @@ export async function sendEmail({to, subject, react}) {
 
   try {
     const data = await resend.emails.send({
-      from: 'Wallet X <onboarding@resend.dev>',
+      from: 'Vault X <onboarding@resend.dev>',
       to,
       subject,
       react,

@@ -19,7 +19,7 @@ const Header = async () => {
       <nav className='container mx-auto px-4 py-4 flex items-center justify-between'>
         <Link href='/'>
           <Image
-            src={'/randomLogo.jpg'}
+            src={'/VaultX.png'}
             alt='logo'
             height={60}
             width={200}
