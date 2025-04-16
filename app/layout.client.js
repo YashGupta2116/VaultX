@@ -1,8 +1,7 @@
-import RootLayout from './layout.client';
+'use client';
 
-export const metadata = {
-  title: 'Vault X',
-  description: 'One stop Finance platform',
-};
+import {ClerkProvider} from '@clerk/nextjs';
 
-export default RootLayout;
+export default function ClientLayout({children}) {
+  return <ClerkProvider>{children}</ClerkProvider>;
+}

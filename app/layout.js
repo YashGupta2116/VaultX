@@ -1,8 +1,8 @@
 import './globals.css';
 import {Inter} from 'next/font/google';
 import Header from '@/components/header';
-import {ClerkProvider} from '@clerk/nextjs';
 import {Toaster} from 'sonner';
+import ClientLayout from './layout.client';
 
 const inter = Inter({subsets: ['latin']});
 
@@ -13,9 +13,9 @@ export const metadata = {
 
 export default function RootLayout({children}) {
   return (
-    <ClerkProvider>
-      <html lang='en'>
-        <body className={inter.className}>
+    <html lang='en'>
+      <body className={inter.className}>
+        <ClientLayout>
           <header>
             <Header />
           </header>
@@ -26,8 +26,8 @@ export default function RootLayout({children}) {
               © Made with by yash💖
             </div>
           </footer>
-        </body>
-      </html>
-    </ClerkProvider>
+        </ClientLayout>
+      </body>
+    </html>
   );
 }
