@@ -21,20 +21,18 @@ import {
 } from '@/components/ui/select';
 import {Popover, PopoverContent, PopoverTrigger} from '@/components/ui/popover';
 import {Calendar} from '@/components/ui/calendar';
-
+import {CreateAccountDrawer} from '@/components/create-account-drawer';
 import {cn} from '@/lib/utils';
 import {createTransaction, updateTransaction} from '@/actions/transaction';
 import {transactionSchema} from '@/app/lib/schema';
-import CreateAccountDrawer from '@/components/create-account-drawer';
-import ReceiptScanner from './receipt-scanner';
-// import {ReceiptScanner} from './recipt-scanner';
+import {ReceiptScanner} from './recipt-scanner';
 
-const AddTransactionForm = ({
+export function AddTransactionForm({
   accounts,
   categories,
   editMode = false,
   initialData = null,
-}) => {
+}) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const editId = searchParams.get('edit');
@@ -92,6 +90,20 @@ const AddTransactionForm = ({
     }
   };
 
+  const handleScanComplete = (scannedData) => {
+    if (scannedData) {
+      setValue('amount', scannedData.amount.toString());
+      setValue('date', new Date(scannedData.date));
+      if (scannedData.description) {
+        setValue('description', scannedData.description);
+      }
+      if (scannedData.category) {
+        setValue('category', scannedData.category);
+      }
+      toast.success('Receipt scanned successfully');
+    }
+  };
+
   useEffect(() => {
     if (transactionResult?.success && !transactionLoading) {
       toast.success(
@@ -112,22 +124,9 @@ const AddTransactionForm = ({
     (category) => category.type === type
   );
 
-  const handleScanComplete = (scannedData) => {
-    if (scannedData) {
-      setValue('amount', scannedData.amount.toString());
-      setValue('date', new Date(scannedData.date));
-      if (scannedData.description) {
-        setValue('description', scannedData.description);
-      }
-      if (scannedData.category) {
-        setValue('category', scannedData.category);
-      }
-    }
-  };
-
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='space-y-6'>
-      {/* AI Receipt Scanner */}
+      {/* Receipt Scanner - Only show in create mode */}
       {!editMode && <ReceiptScanner onScanComplete={handleScanComplete} />}
 
       {/* Type */}
@@ -303,10 +302,15 @@ const AddTransactionForm = ({
 
       {/* Actions */}
       <div className='flex gap-4'>
-        <Button type='button' variant='outline' onClick={() => router.back()}>
+        <Button
+          type='button'
+          variant='outline'
+          className='w-full'
+          onClick={() => router.back()}
+        >
           Cancel
         </Button>
-        <Button type='submit' disabled={transactionLoading}>
+        <Button type='submit' className='w-full' disabled={transactionLoading}>
           {transactionLoading ? (
             <>
               <Loader2 className='mr-2 h-4 w-4 animate-spin' />
@@ -321,6 +325,4 @@ const AddTransactionForm = ({
       </div>
     </form>
   );
-};
-
-export default AddTransactionForm;
+}

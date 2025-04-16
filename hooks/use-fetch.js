@@ -11,9 +11,8 @@ const useFetch = (cb) => {
     setError(null);
 
     try {
-      const res = await cb(...args);
-
-      setData(res);
+      const response = await cb(...args);
+      setData(response);
       setError(null);
     } catch (error) {
       setError(error);
@@ -22,6 +21,7 @@ const useFetch = (cb) => {
       setLoading(false);
     }
   };
+
   return {data, loading, error, fn, setData};
 };
 
