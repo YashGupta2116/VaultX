@@ -2,7 +2,6 @@
 
 import {ArrowUpRight, ArrowDownRight, CreditCard} from 'lucide-react';
 import {Switch} from '@/components/ui/switch';
-import {Badge} from '@/components/ui/badge';
 import {useEffect} from 'react';
 import useFetch from '@/hooks/use-fetch';
 import {
@@ -13,7 +12,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import Link from 'next/link';
-import {updateDefaultAccount} from '@/actions/account';
+import {updateDefaultAccount} from '@/actions/accounts';
 import {toast} from 'sonner';
 
 export function AccountCard({account}) {
