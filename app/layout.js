@@ -7,7 +7,7 @@ import {Toaster} from 'sonner';
 const inter = Inter({subsets: ['latin']});
 
 export const metadata = {
-  title: 'Welth',
+  title: 'Vault X',
   description: 'One stop Finance Platform',
 };
 
@@ -27,7 +27,7 @@ export default function RootLayout({children}) {
           <footer className='bg-gradient-to-r from-blue-600 to-purple-600 text-white py-12'>
             <div className='container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-sm'>
               <div>
-                <h2 className='font-bold text-lg mb-2'>Welth</h2>
+                <h2 className='font-bold text-lg mb-2'>Vault X</h2>
                 <p>Smart tools to manage your money, powered by AI.</p>
               </div>
               <div>
@@ -57,7 +57,7 @@ export default function RootLayout({children}) {
               </div>
             </div>
             <div className='text-center mt-6 text-xs text-white/70'>
-              ©️ 2025 Welth. All rights reserved. | Made with 💗 by Yash
+              ©️ 2025 Vault X. All rights reserved. | Made with 💗 by Yash
             </div>
           </footer>
         </body>
