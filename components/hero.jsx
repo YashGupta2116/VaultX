@@ -1,8 +1,8 @@
 'use client';
 
-import React, {useEffect, useRef} from 'react';
+import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
-import {Button} from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
 const HeroSection = () => {
@@ -42,7 +42,7 @@ const HeroSection = () => {
               Get Started
             </Button>
           </Link>
-          <Link href='https://www.youtube.com/roadsidecoder'>
+          <Link href='/'>
             <Button size='lg' variant='outline' className='px-8'>
               Watch Demo
             </Button>
